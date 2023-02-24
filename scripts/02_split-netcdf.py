@@ -140,7 +140,7 @@ def aerchemmip():
                     iris.save(pert_1yr, f"{outdir}/{var}_Amon_{model}_histSST_{run}_{year}.nc")
 
 
-for model in tqdm(["UKESM1-0-LL"], desc='Models'):
+for model in tqdm(models, desc='Models'):
     if len(runs_piclim_control[model])>0:
         rfmip()
     else:
