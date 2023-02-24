@@ -1,7 +1,6 @@
 name: cmip6-aerosol-forcing
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - black
   - flake8

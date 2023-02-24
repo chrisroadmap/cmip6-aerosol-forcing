@@ -219,103 +219,40 @@ def rfmip():
 
 
 def aerchemmip():
-    run = runs_histsst_piaer[model][0]
-    clt_base = iris.load(f"{datadir}/clt_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(clt_base)
-    unify_time_units(clt_base)
-    clt_base = clt_base.concatenate_cube()
-    rsdt_base = iris.load(f"{datadir}/rsdt_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsdt_base)
-    unify_time_units(rsdt_base)
-    rsdt_base = rsdt_base.concatenate_cube()
-    rsus_base = iris.load(f"{datadir}/rsus_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsus_base)
-    unify_time_units(rsus_base)
-    rsus_base = rsus_base.concatenate_cube()
-    rsds_base = iris.load(f"{datadir}/rsds_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsds_base)
-    unify_time_units(rsds_base)
-    rsds_base = rsds_base.concatenate_cube()
-    rsdscs_base = iris.load(f"{datadir}/rsdscs_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsdscs_base)
-    unify_time_units(rsdscs_base)
-    rsdscs_base = rsdscs_base.concatenate_cube()
-    rsut_base = iris.load(f"{datadir}/rsut_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsut_base)
-    unify_time_units(rsut_base)
-    rsut_base = rsut_base.concatenate_cube()
-    rsutcs_base = iris.load(f"{datadir}/rsutcs_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsutcs_base)
-    unify_time_units(rsutcs_base)
-    rsutcs_base = rsutcs_base.concatenate_cube()
-    rlut_base = iris.load(f"{datadir}/rlut_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rlut_base)
-    unify_time_units(rlut_base)
-    rlut_base = rlut_base.concatenate_cube()
-    rlutcs_base = iris.load(f"{datadir}/rlutcs_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rlutcs_base)
-    unify_time_units(rlutcs_base)
-    rlutcs_base = rlutcs_base.concatenate_cube()
-    rsuscs_base = iris.load(f"{datadir}/rsuscs_Amon_{model}_histSST-piAer_{run}_*.nc")
-    equalise_attributes(rsuscs_base)
-    unify_time_units(rsuscs_base)
-    rsuscs_base = rsuscs_base.concatenate_cube()
+    run = list(runs_histsst_piaer[model])[0]
+    first = runs_histsst_piaer[model][run]['first']
+    last = runs_histsst_piaer[model][run]['last']
+    outdir = f'../output/{model}/{run}'
+    os.makedirs(f'{outdir}/gridded', exist_ok=True)
+    os.makedirs(f'{outdir}/mean', exist_ok=True)
+    for year in tqdm(range(first, last+1), desc='Model years', leave=False):
+        clt_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/clt_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rsdt_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsdt_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rsus_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsus_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rsds_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsds_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rsdscs_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsdscs_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rsut_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsut_Amon_{model}_histSST-piAer_{run}_{year}.nc")    
+        rsutcs_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsutcs_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rlut_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rlut_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rlutcs_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rlutcs_Amon_{model}_histSST-piAer_{run}_{year}.nc")
+        rsuscs_base = iris.load_cube(f"{datadir}/{model}/{run}/histSST-piAer/rsuscs_Amon_{model}_histSST-piAer_{run}_{year}.nc")
 
-    # calculate aprp for each ensemble member
-    for run in tqdm(runs_histsst[model], desc='run', leave=False):
-        outdir = f'../../../../../output/fair-{fair_v}/v{cal_v}/{constraint_set}/calibrations/aerosol/{model}/{run}'
-        os.makedirs(outdir, exist_ok=True)
-        clt_pert = iris.load(f"{datadir}/clt_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(clt_pert)
-        unify_time_units(clt_pert)
-        clt_pert = clt_pert.concatenate_cube()
-        rsdt_pert = iris.load(f"{datadir}/rsdt_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsdt_pert)
-        unify_time_units(rsdt_pert)
-        rsdt_pert = rsdt_pert.concatenate_cube()
-        rsus_pert = iris.load(f"{datadir}/rsus_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsus_pert)
-        unify_time_units(rsus_pert)
-        rsus_pert = rsus_pert.concatenate_cube()
-        rsds_pert = iris.load(f"{datadir}/rsds_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsds_pert)
-        unify_time_units(rsds_pert)
-        rsds_pert = rsds_pert.concatenate_cube()
-        rsdscs_pert = iris.load(f"{datadir}/rsdscs_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsdscs_pert)
-        unify_time_units(rsdscs_pert)
-        rsdscs_pert = rsdscs_pert.concatenate_cube()
-        rsut_pert = iris.load(f"{datadir}/rsut_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsut_pert)
-        unify_time_units(rsut_pert)
-        rsut_pert = rsut_pert.concatenate_cube()
-        rsutcs_pert = iris.load(f"{datadir}/rsutcs_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsutcs_pert)
-        unify_time_units(rsutcs_pert)
-        rsutcs_pert = rsutcs_pert.concatenate_cube()
-        rlut_pert = iris.load(f"{datadir}/rlut_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rlut_pert)
-        unify_time_units(rlut_pert)
-        rlut_pert = rlut_pert.concatenate_cube()
-        rlutcs_pert = iris.load(f"{datadir}/rlutcs_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rlutcs_pert)
-        unify_time_units(rlutcs_pert)
-        rlutcs_pert = rlutcs_pert.concatenate_cube()
-        rsuscs_pert = iris.load(f"{datadir}/rsuscs_Amon_{model}_histSST_{run}_*.nc")
-        equalise_attributes(rsuscs_pert)
-        unify_time_units(rsuscs_pert)
-        rsuscs_pert = rsuscs_pert.concatenate_cube()
+        clt_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/clt_Amon_{model}_histSST_{run}_{year}.nc")
+        rsdt_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsdt_Amon_{model}_histSST_{run}_{year}.nc")
+        rsus_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsus_Amon_{model}_histSST_{run}_{year}.nc")
+        rsds_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsds_Amon_{model}_histSST_{run}_{year}.nc")
+        rsdscs_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsdscs_Amon_{model}_histSST_{run}_{year}.nc")
+        rsut_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsut_Amon_{model}_histSST_{run}_{year}.nc")    
+        rsutcs_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsutcs_Amon_{model}_histSST_{run}_{year}.nc")
+        rlut_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rlut_Amon_{model}_histSST_{run}_{year}.nc")
+        rlutcs_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rlutcs_Amon_{model}_histSST_{run}_{year}.nc")
+        rsuscs_pert = iris.load_cube(f"{datadir}/{model}/{run}/histSST/rsuscs_Amon_{model}_histSST_{run}_{year}.nc")
 
-        pert_nmonths = rsdt_pert.shape[0]
-        pert_nyears = pert_nmonths//12
         nlat = rsdt_base.shape[1]
         nlon = rsdt_base.shape[2]
 
         outvars = ['ERFariSW', 'ERFaciSW', 'ERFariLW', 'ERFaciLW', 'albedo']
         results = {}
-
-        for var in outvars:
-            results[var] = np.ones((pert_nmonths, nlat, nlon)) * np.nan
 
         base_slice = {
             "clt": clt_base.data,
@@ -362,22 +299,10 @@ def aerchemmip():
                 units = 'W m-2',
                 dim_coords_and_dims=[(rsdt_pert.coord('time'), 0), (rsdt_pert.coord('latitude'), 1), (rsdt_pert.coord('longitude'), 2)]
             )
-
-            iris.coord_categorisation.add_year(cube, 'time')
-            cube_year = cube.aggregated_by('year', iris.analysis.MEAN)
-            if not cube_year.coord('latitude').has_bounds():
-                cube_year.coord('latitude').guess_bounds()
-            if not cube_year.coord('longitude').has_bounds():
-                cube_year.coord('longitude').guess_bounds()
-            grid_areas = iris.analysis.cartography.area_weights(cube_year)
-            cube_gmym = cube_year.collapsed(['longitude', 'latitude'], iris.analysis.MEAN, weights=grid_areas)
-            iris.save(cube_gmym, f"{outdir}/{component}.nc")
+            iris.save(cube, f"{outdir}/gridded/{component}_{year}.nc")
 
 
-for model in tqdm(["GISS-E2-1-G"], desc='Models'):
-    # what to do about ec-earth, which is a huge model?
-    # GFDL-ESM4 seemed to struggle
-    # I think MRI-ESM would too
+for model in tqdm(["UKESM1-0-LL"], desc='Models'):
     if len(runs_piclim_control[model])>0:
         rfmip()
     else:

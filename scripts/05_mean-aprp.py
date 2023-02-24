@@ -41,8 +41,8 @@ for outdir in glob.glob('../output/*/*'):
         cube_gmym = cube_year.collapsed(['longitude', 'latitude'], iris.analysis.MEAN, weights=grid_areas)
         #iris.save(cube_gmym, f"{outdir}/{component}.nc")
 
-        data[var] = cube_gmym.data[:56]
-        time = cube_gmym.coord('year').points[:56]
+        data[var] = cube_gmym.data
+        time = cube_gmym.coord('year').points
 
     data['ERFari'] = data['ERFariSW'] + data['ERFariLW']
     data['ERFaci'] = data['ERFaciSW'] + data['ERFaciLW']
