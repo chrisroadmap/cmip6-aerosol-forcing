@@ -127,7 +127,7 @@ def aerchemmip():
 
 
     for run in tqdm(runs_histsst[model], desc='run', leave=False):
-        outdir = f"../data/yearly/{model}/{run}/piClim-histaer/"
+        outdir = f"../data/yearly/{model}/{run}/histSST/"
         os.makedirs(outdir, exist_ok=True)
         for var in tqdm(varlist, desc="variables", leave=False):
             for file in glob.glob(f"{datadir}/{var}_Amon_{model}_histSST_{run}_*.nc"):
