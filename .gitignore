@@ -1,3 +1,13 @@
+# CMIP6 netCDFs
+data/esgf/*.nc
+data/yearly
+
+# Large output
+output/*/*/gridded
+
+# OS junk
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,0 +1,21 @@
+name: cmip6-aerosol-forcing
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - black
+  - flake8
+  - h5py
+  - ipython
+  - iris
+  - isort
+  - matplotlib
+  - netCDF4
+  - numpy
+  - pandas
+  - scipy
+  - tqdm
+  - xarray
+  - pip
+  - pip:
+    - git+https://github.com/chrisroadmap/climateforcing@aprp-fix
