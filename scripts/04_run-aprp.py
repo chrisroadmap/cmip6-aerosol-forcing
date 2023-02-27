@@ -43,28 +43,28 @@ for model in models:
             runs_piclim_control[model][runid] = {}
             years = []
             for files in glob.glob(f'{datadir}{model}/{runid}/{expt}/*.nc'):
-                years.append(int(files.split('_')[-1][:4]))
+                years.append(int(files.split('_')[-1][:-3]))
             runs_piclim_control[model][runid]['first'] = min(years)
             runs_piclim_control[model][runid]['last'] = max(years)
         elif expt=='piClim-histaer':
             runs_piclim_histaer[model][runid] = {}
             years = []
             for files in glob.glob(f'{datadir}{model}/{runid}/{expt}/*.nc'):
-                years.append(int(files.split('_')[-1][:4]))
+                years.append(int(files.split('_')[-1][:-3]))
             runs_piclim_histaer[model][runid]['first'] = min(years)
             runs_piclim_histaer[model][runid]['last'] = max(years)
         elif expt=='histSST-piAer':
             runs_histsst_piaer[model][runid] = {}
             years = []
             for files in glob.glob(f'{datadir}{model}/{runid}/{expt}/*.nc'):
-                years.append(int(files.split('_')[-1][:4]))
+                years.append(int(files.split('_')[-1][:-3]))
             runs_histsst_piaer[model][runid]['first'] = min(years)
             runs_histsst_piaer[model][runid]['last'] = max(years)
         elif expt=='histSST':
             runs_histsst[model][runid] = {}
             years = []
             for files in glob.glob(f'{datadir}{model}/{runid}/{expt}/*.nc'):
-                years.append(int(files.split('_')[-1][:4]))
+                years.append(int(files.split('_')[-1][:-3]))
             runs_histsst[model][runid]['first'] = min(years)
             runs_histsst[model][runid]['last'] = max(years)
 
