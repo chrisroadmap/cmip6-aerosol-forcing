@@ -1,8 +1,10 @@
 name: cmip6-aerosol-forcing
 channels:
+  - chrisroadmap
   - conda-forge
 dependencies:
   - black
+  - climateforcing>=0.3.0
   - flake8
   - h5py
   - ipython
@@ -15,6 +17,3 @@ dependencies:
   - scipy
   - tqdm
   - xarray
-  - pip
-  - pip:
-    - git+https://github.com/chrisroadmap/climateforcing@aprp-fix
