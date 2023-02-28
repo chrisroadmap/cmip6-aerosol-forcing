@@ -3,17 +3,11 @@ channels:
   - chrisroadmap
   - conda-forge
 dependencies:
-  - black
   - climateforcing>=0.3.0
-  - flake8
-  - h5py
   - ipython
   - iris
-  - isort
   - matplotlib
-  - netCDF4
+  - netcdf4
   - numpy
   - pandas
-  - scipy
   - tqdm
-  - xarray
