@@ -1,10 +1,10 @@
 name: cmip6-aerosol-forcing
 channels:
-  - chrisroadmap
+#  - chrisroadmap
   - conda-forge
 dependencies:
   - black
-  - climateforcing>=0.3.0
+#  - climateforcing>=0.3.0
   - flake8
   - h5py
   - ipython
