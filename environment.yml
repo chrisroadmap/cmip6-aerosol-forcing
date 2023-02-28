@@ -1,22 +1,13 @@
 name: cmip6-aerosol-forcing
 channels:
-#  - chrisroadmap
+  - chrisroadmap
   - conda-forge
 dependencies:
-  - black
-#  - climateforcing>=0.3.0
-  - flake8
-  - h5py
+  - climateforcing>=0.3.0
   - ipython
   - iris
-  - isort
   - matplotlib
-  - netCDF4
+  - netcdf4
   - numpy
   - pandas
-  - scipy
   - tqdm
-  - xarray
-  - pip
-  - pip:
-    - git+https://github.com/chrisroadmap/climateforcing.git@h5-fix
