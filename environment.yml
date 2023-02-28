@@ -17,3 +17,6 @@ dependencies:
   - scipy
   - tqdm
   - xarray
+  - pip
+  - pip:
+    - git+git://github.com/chrisroadmap/climateforcing.git@h5-fix
