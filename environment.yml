@@ -19,4 +19,4 @@ dependencies:
   - xarray
   - pip
   - pip:
-    - git+git://github.com/chrisroadmap/climateforcing.git@h5-fix
+    - git+https://github.com/chrisroadmap/climateforcing.git@h5-fix
