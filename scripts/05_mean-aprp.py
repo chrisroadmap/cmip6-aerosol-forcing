@@ -15,7 +15,6 @@ import iris
 import iris.coord_categorisation
 import iris.analysis.cartography
 from iris.util import equalise_attributes, unify_time_units
-from tqdm.auto import tqdm
 
 vars = ['ERF', 'ERFariSW', 'ERFaciSW', 'ERFariLW', 'ERFaciLW', 'albedo']
 
@@ -39,7 +38,6 @@ for outdir in glob.glob('../output/*/*'):
             cube_year.coord('longitude').guess_bounds()
         grid_areas = iris.analysis.cartography.area_weights(cube_year)
         cube_gmym = cube_year.collapsed(['longitude', 'latitude'], iris.analysis.MEAN, weights=grid_areas)
-        #iris.save(cube_gmym, f"{outdir}/{component}.nc")
 
         data[var] = cube_gmym.data
         time = cube_gmym.coord('year').points

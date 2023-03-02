@@ -114,7 +114,7 @@ def rfmip():
     base_run = list(runs_piclim_control[model])[0]
     first_base = runs_piclim_control[model][base_run]['first']
     last_base = runs_piclim_control[model][base_run]['last']
-        # calculate aprp for each ensemble member
+    # calculate aprp for each ensemble member
     for pert_run in tqdm(runs_piclim_histaer[model], desc='run', leave=False):
         outdir = f'../output/{model}/{pert_run}'
         os.makedirs(f'{outdir}/gridded', exist_ok=True)
@@ -147,7 +147,7 @@ def rfmip():
                 interim[var] = np.ones((last_base-first_base+1, 12, nlat, nlon)) * np.nan
             interim['ERF'] = np.ones((last_base-first_base+1, 12, nlat, nlon)) * np.nan
 
-            for j, base_year in enumerate(tqdm(range(first_base, last_base+1), desc='Base years')):
+            for j, base_year in tqdm(enumerate(range(first_base, last_base+1), desc='Base years')):
                 clt_base = iris.load_cube(f"{datadir}{model}/{base_run}/piClim-control/clt_Amon_{model}_piClim-control_{base_run}_{base_year}.nc")
                 rsdt_base = iris.load_cube(f"{datadir}{model}/{base_run}/piClim-control/rsdt_Amon_{model}_piClim-control_{base_run}_{base_year}.nc")
                 rsus_base = iris.load_cube(f"{datadir}{model}/{base_run}/piClim-control/rsus_Amon_{model}_piClim-control_{base_run}_{base_year}.nc")
@@ -205,17 +205,6 @@ def rfmip():
                     dim_coords_and_dims=[(rsdt_pert.coord('time'), 0), (rsdt_pert.coord('latitude'), 1), (rsdt_pert.coord('longitude'), 2)]
                 )
                 iris.save(cube, f'{outdir}/gridded/{component}_{pert_year}.nc')
-
-                # iris.coord_categorisation.add_year(cube, 'time')
-                # cube_year = cube.aggregated_by('year', iris.analysis.MEAN)
-                # if not cube_year.coord('latitude').has_bounds():
-                #     cube_year.coord('latitude').guess_bounds()
-                # if not cube_year.coord('longitude').has_bounds():
-                #     cube_year.coord('longitude').guess_bounds()
-                # grid_areas = iris.analysis.cartography.area_weights(cube_year)
-                # cube_gmym = cube_year.collapsed(['longitude', 'latitude'], iris.analysis.MEAN, weights=grid_areas)
-                # iris.save(cube_gmym, f"{outdir}/mean/{component}.nc")
-
 
 
 def aerchemmip():
@@ -303,6 +292,8 @@ def aerchemmip():
 
 
 for model in tqdm(models, desc='Models'):
+    if model in ['CanESM5', 'GFDL-CM4', 'IPSL-CM6A-LR', 'MPI-ESM-1-2-HAM', 'CNRM-CM6-1', 'EC-Earth3', 'GFDL-ESM4', 'MIROC6', 'MRI-ESM2-0']:
+        continue
     if len(runs_piclim_control[model])>0:
         rfmip()
     else:
