@@ -1,0 +1,13 @@
+name: cmip6-aerosol-forcing
+channels:
+  - chrisroadmap
+  - conda-forge
+dependencies:
+  - climateforcing>=0.3.0
+  - ipython
+  - iris
+  - matplotlib
+  - netcdf4
+  - numpy
+  - pandas
+  - tqdm
