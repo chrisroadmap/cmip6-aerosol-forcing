@@ -1,5 +1,6 @@
 # CMIP6 netCDFs
 data/esgf/*.nc
+data/esgf_ghan2013/*.nc
 data/yearly
 
 # Large output
