@@ -147,7 +147,7 @@ def rfmip():
                 interim[var] = np.ones((last_base-first_base+1, 12, nlat, nlon)) * np.nan
             interim['ERF'] = np.ones((last_base-first_base+1, 12, nlat, nlon)) * np.nan
 
-            for j, base_year in tqdm(enumerate(range(first_base, last_base+1), desc='Base years')):
+            for j, base_year in tqdm(enumerate(range(first_base, last_base+1)), desc='Base years'):
                 clt_base = iris.load_cube(f"{datadir}{model}/{base_run}/piClim-control/clt_Amon_{model}_piClim-control_{base_run}_{base_year}.nc")
                 rsdt_base = iris.load_cube(f"{datadir}{model}/{base_run}/piClim-control/rsdt_Amon_{model}_piClim-control_{base_run}_{base_year}.nc")
                 rsus_base = iris.load_cube(f"{datadir}{model}/{base_run}/piClim-control/rsus_Amon_{model}_piClim-control_{base_run}_{base_year}.nc")
@@ -292,8 +292,8 @@ def aerchemmip():
 
 
 for model in tqdm(models, desc='Models'):
-    if model in ['CanESM5', 'GFDL-CM4', 'IPSL-CM6A-LR', 'MPI-ESM-1-2-HAM', 'CNRM-CM6-1', 'EC-Earth3', 'GFDL-ESM4', 'MIROC6', 'MRI-ESM2-0']:
-        continue
+#    if model in ['CanESM5', 'GFDL-CM4', 'IPSL-CM6A-LR', 'MPI-ESM-1-2-HAM', 'CNRM-CM6-1', 'EC-Earth3', 'GFDL-ESM4', 'MIROC6', 'MRI-ESM2-0']:
+#        continue
     if len(runs_piclim_control[model])>0:
         rfmip()
     else:
