@@ -3,8 +3,9 @@ data/esgf/*.nc
 data/esgf_ghan2013/*.nc
 data/yearly
 
-# Large output
+# Large output and output not produced here
 output/*/*/gridded
+output/*_AerChemMIP
 
 # OS junk
 .DS_Store
