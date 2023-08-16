@@ -294,7 +294,9 @@ def aerchemmip():
 for model in tqdm(models, desc='Models'):
 #    if model in ['CanESM5', 'GFDL-CM4', 'IPSL-CM6A-LR', 'MPI-ESM-1-2-HAM', 'CNRM-CM6-1', 'EC-Earth3', 'GFDL-ESM4', 'MIROC6', 'MRI-ESM2-0']:
 #        continue
-    if len(runs_piclim_control[model])>0:
+    if model=='EC-Earth3':
+        continue
+    elif len(runs_piclim_control[model])>0:
         rfmip()
     else:
         aerchemmip()
